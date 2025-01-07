@@ -24,7 +24,7 @@ export default class OpportunityProductsViewer extends LightningElement {
     @wire(getOpportunityLineItems)
     wiredOpportunityLineItems({ error, data }) {
         if (data) {
-            this.opportunityLineItems = data;
+    //        this.opportunityLineItems = data;
             this.opportunityLineItems = data.map(item => {
                 return {
                     ...item,
