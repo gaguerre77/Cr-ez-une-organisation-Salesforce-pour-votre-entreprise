@@ -2,7 +2,7 @@
     <lightning-card title="Profil Utilisateur">
         <div class="slds-m-around_medium">
             <template if:true={userProfile}>
-                <p>Profil actuel : {userProfile}</p>
+                <p>Profil actuel connecté : {userProfile}</p>
             </template>
             <template if:false={userProfile}>
                 <p>Chargement du profil...</p>
