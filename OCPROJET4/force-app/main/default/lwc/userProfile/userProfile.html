@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Profil Utilisateur">
+        <div class="slds-m-around_medium">
+            <template if:true={userProfile}>
+                <p>Profil actuel : {userProfile}</p>
+            </template>
+            <template if:false={userProfile}>
+                <p>Chargement du profil...</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
