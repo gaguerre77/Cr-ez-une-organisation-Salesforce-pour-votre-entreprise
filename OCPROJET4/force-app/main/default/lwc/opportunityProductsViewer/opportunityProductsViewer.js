@@ -18,9 +18,9 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
         { 
             label: 'Quantity', 
             fieldName: 'Quantity', 
-            type: 'custom', 
-            typeAttributes: {
-                customComponent: 'c-quantity-cell-renderer'
+            type: 'number', 
+            cellAttributes: {
+                style: { fieldName : 'quantityStyle'}
             }
         },
         { label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency' },
@@ -58,10 +58,16 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
         if (result.data) {
     //        this.opportunityLineItems = data;
             this.opportunityLineItems = result.data.map(item => {
+                let quantityStyle = '';
+                if (item.Quantity > item.Product2.QuantityInStock__c) {
+                    quantityStyle = 'color: red; font-weight: bold;';
+                    console.log('quantityStyle : ', quantityStyle);
+                }
                 return {
                     ...item,
                     Product2Name: item.Product2.Name,
-                    Product2QuantityInStock: item.Product2.QuantityInStock__c
+                    Product2QuantityInStock: item.Product2.QuantityInStock__c,
+                    quantityStyle : quantityStyle
                 };
             });
         } else if (result.error) {
