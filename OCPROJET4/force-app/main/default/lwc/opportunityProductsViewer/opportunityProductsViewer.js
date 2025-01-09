@@ -77,9 +77,20 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
     }
 
     handleView(row) {
-        // Implémentation ici de la logique de suppression
-        console.log('Voir Produit ', row);
-        // Exemples de suppression : appeler une méthode Apex pour supprimer l'enregistrement, etc.
+        console.log('Voir Produit: ', row);
+        // Naviguer vers la page d'enregistrement du produit
+        this[NavigationMixin.Navigate]({
+            //type: 'standard__recordPage',
+            //attributes: {
+            //    recordId: row.Product2Id,
+            //    objectApiName: 'Product2', // Nom de l'objet API
+            //    actionName: 'view'
+            type: 'standard__webPage',
+            attributes: {
+            url: 'http://www.google.com'
+            }   
+            }
+        );
     }
 
 
