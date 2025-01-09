@@ -15,7 +15,14 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
         { label: 'Id', fieldName: 'Id' },
         { label: 'Name', fieldName: 'Name' },
         { label: 'Product2Id', fieldName: 'Product2Id' },
-        { label: 'Quantity', fieldName: 'Quantity', type: 'number' },
+        { 
+            label: 'Quantity', 
+            fieldName: 'Quantity', 
+            type: 'custom', 
+            typeAttributes: {
+                customComponent: 'c-quantity-cell-renderer'
+            }
+        },
         { label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency' },
         { label: 'List Price', fieldName: 'ListPrice', type: 'currency' },
         { label: 'Total Price', fieldName: 'TotalPrice', type: 'currency' },
