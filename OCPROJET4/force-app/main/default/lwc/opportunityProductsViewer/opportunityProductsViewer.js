@@ -7,8 +7,10 @@ import { refreshApex } from '@salesforce/apex';
 
 
 export default class OpportunityProductsViewer extends NavigationMixin(LightningElement) {
-    @track opportunityLineItems;
+    @track opportunityLineItems; // variable définie dans le fichier HTML portant les data
 
+
+// variables columns pour la construction du datatable dans le HTML
     @track columns = [
         { label: 'Id', fieldName: 'Id' },
         { label: 'Name', fieldName: 'Name' },
@@ -41,18 +43,21 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
     ];
 
 
+    wiredOLIResult; // Variable pour stocker le résultat de la méthode wired et permettre son raffraichissement
+
     @wire(getOpportunityLineItems)
-    wiredOpportunityLineItems({ error, data }) {
-        if (data) {
+    wiredOpportunityLineItems(result) {
+        this.wiredOLIResult = result;
+        if (result.data) {
     //        this.opportunityLineItems = data;
-            this.opportunityLineItems = data.map(item => {
+            this.opportunityLineItems = result.data.map(item => {
                 return {
                     ...item,
                     Product2Name: item.Product2.Name,
                     Product2QuantityInStock: item.Product2.QuantityInStock__c
                 };
             });
-        } else if (error) {
+        } else if (result.error) {
             console.error('Error retrieving opportunity line items:', error);
         }
     }
@@ -76,7 +81,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
         deleteOpportunityLineItem({ recordId: row.Id })
             .then(() => {
                 // Rafraîchir les données après suppression
-                return refreshApex(this.wiredOpportunityLineItems);
+                return refreshApex(this.wiredOLIResult);
             })
             .catch(error => {
                 console.error('Error deleting record:', error);
