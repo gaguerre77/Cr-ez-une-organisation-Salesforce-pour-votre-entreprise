@@ -1,11 +1,12 @@
 import { LightningElement, wire, track } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 import getOpportunityLineItems from '@salesforce/apex/OpportunityLineItemController.getOpportunityLineItems';
 
 
 
 
 
-export default class OpportunityProductsViewer extends LightningElement {
+export default class OpportunityProductsViewer extends NavigationMixin(LightningElement) {
     @track opportunityLineItems;
 
     @track columns = [
