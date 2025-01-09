@@ -80,14 +80,11 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
         console.log('Voir Produit: ', row);
         // Naviguer vers la page d'enregistrement du produit
         this[NavigationMixin.Navigate]({
-            //type: 'standard__recordPage',
-            //attributes: {
-            //    recordId: row.Product2Id,
-            //    objectApiName: 'Product2', // Nom de l'objet API
-            //    actionName: 'view'
-            type: 'standard__webPage',
+            type: 'standard__recordPage',
             attributes: {
-            url: 'http://www.google.com'
+                recordId: row.Product2Id,
+                objectApiName: 'Product2', // Nom de l'objet API
+                actionName: 'view'
             }   
             }
         );
