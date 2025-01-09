@@ -8,7 +8,7 @@ import getOpportunityLineItems from '@salesforce/apex/OpportunityLineItemControl
 export default class OpportunityProductsViewer extends LightningElement {
     @track opportunityLineItems;
 
-    columns = [
+    @track columns = [
         { label: 'Id', fieldName: 'Id' },
         { label: 'Name', fieldName: 'Name' },
         { label: 'Product2Id', fieldName: 'Product2Id' },
@@ -17,7 +17,26 @@ export default class OpportunityProductsViewer extends LightningElement {
         { label: 'List Price', fieldName: 'ListPrice', type: 'currency' },
         { label: 'Total Price', fieldName: 'TotalPrice', type: 'currency' },
         { label: 'Product Name', fieldName: 'Product2Name' },
-        { label: 'Quantity In Stock', fieldName: 'Product2QuantityInStock', type: 'number' }
+        { label: 'Quantity In Stock', fieldName: 'Product2QuantityInStock', type: 'number' },
+        { label: 'Supprimer', type: 'button-icon', typeAttributes: 
+            { 
+            iconName: 'utility:delete', 
+            name: 'delete', 
+            title: 'Delete', 
+            alternativeText: 'Delete', 
+            variant: 'border-filled', 
+            }
+        },
+        { label: 'Voir Produit', type: 'button', typeAttributes: 
+            {
+                label: 'Voir Produit', 
+                name: 'view', 
+                iconName: 'utility:preview', 
+                variant: 'brand',
+            }
+        }
+
+
     ];
 
 
@@ -36,4 +55,31 @@ export default class OpportunityProductsViewer extends LightningElement {
             console.error('Error retrieving opportunity line items:', error);
         }
     }
+
+    handleRowAction(event) {
+        console.log('Row action déclenché');
+        const actionName = event.detail.action.name;
+        console.log('action name', actionName);
+        const row = event.detail.row;
+        if (actionName === 'delete') {
+            this.handleDelete(row);
+        }
+        if (actionName === 'view') {
+            this.handleView(row);
+        }
+    }
+
+    handleDelete(row) {
+        // Implémentation ici de la logique de suppression
+        console.log('suppression de la ligne: ', row);
+        // Exemples de suppression : appeler une méthode Apex pour supprimer l'enregistrement, etc.
+    }
+
+    handleView(row) {
+        // Implémentation ici de la logique de suppression
+        console.log('Voir Produit ', row);
+        // Exemples de suppression : appeler une méthode Apex pour supprimer l'enregistrement, etc.
+    }
+
+
 }
