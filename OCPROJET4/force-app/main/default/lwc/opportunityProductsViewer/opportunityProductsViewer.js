@@ -1,8 +1,8 @@
 import { LightningElement, wire, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getOpportunityLineItems from '@salesforce/apex/OpportunityLineItemController.getOpportunityLineItems';
-
-
+import deleteOpportunityLineItem from '@salesforce/apex/OpportunityLineItemController.deleteOpportunityLineItem'; // Importer la méthode Apex pour supprimer
+import { refreshApex } from '@salesforce/apex';
 
 
 
@@ -71,10 +71,18 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
     }
 
     handleDelete(row) {
-        // Implémentation ici de la logique de suppression
-        console.log('suppression de la ligne: ', row);
-        // Exemples de suppression : appeler une méthode Apex pour supprimer l'enregistrement, etc.
+        console.log('appel à la suppression de la ligne',row);
+        // Appel de la méthode Apex pour supprimer l'enregistrement
+        deleteOpportunityLineItem({ recordId: row.Id })
+            .then(() => {
+                // Rafraîchir les données après suppression
+                return refreshApex(this.wiredOpportunityLineItems);
+            })
+            .catch(error => {
+                console.error('Error deleting record:', error);
+            });
     }
+
 
     handleView(row) {
         console.log('Voir Produit: ', row);
