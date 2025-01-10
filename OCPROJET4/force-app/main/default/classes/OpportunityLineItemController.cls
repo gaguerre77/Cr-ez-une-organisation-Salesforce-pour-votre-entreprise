@@ -2,6 +2,8 @@
 
 
 public with sharing class OpportunityLineItemController {
+    
+  
     @AuraEnabled(cacheable=true)
     public static List<OpportunityLineItem> getOpportunityLineItems(Id opportunityId) {
         return [

@@ -21,12 +21,13 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
             fieldName: 'Quantity', 
             type: 'number', 
             cellAttributes: {
-                style: { fieldName : 'quantityStyle'}
+                style: { fieldName : 'quantityStyle'},
+                alignment : 'left'
             }
         },
-        { label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency' },
-        { label: 'Total Price', fieldName: 'TotalPrice', type: 'currency' },  
-        { label: 'Quantity In Stock', fieldName: 'Product2QuantityInStock', type: 'number' },
+        { label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency',cellAttributes: { alignment: 'left' } },
+        { label: 'Total Price', fieldName: 'TotalPrice', type: 'currency',cellAttributes: { alignment: 'left' }  },  
+        { label: 'Quantity In Stock', fieldName: 'Product2QuantityInStock', type: 'number',cellAttributes: { alignment: 'left' }  },
         { label: 'Supprimer', type: 'button-icon', typeAttributes: 
             { 
             iconName: 'utility:delete', 
@@ -142,9 +143,5 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
             }
         );
     }
-
- 
-
-
 
 }
