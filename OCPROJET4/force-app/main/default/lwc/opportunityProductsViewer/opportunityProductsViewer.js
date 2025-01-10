@@ -58,6 +58,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
         if (result.data) {
     //        this.opportunityLineItems = data;
             this.showAlert = false;
+            console.log('passage dans wiredOPP');
             this.opportunityLineItems = result.data.map(item => {
                 let quantityStyle = '';
                 if (item.Quantity > item.Product2.QuantityInStock__c) {
