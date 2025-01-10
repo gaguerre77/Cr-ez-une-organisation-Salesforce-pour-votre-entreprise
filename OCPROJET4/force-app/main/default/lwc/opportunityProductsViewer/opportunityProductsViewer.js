@@ -2,19 +2,18 @@ import { LightningElement, api, wire, track  } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getOpportunityLineItems from '@salesforce/apex/OpportunityLineItemController.getOpportunityLineItems';
 import deleteOpportunityLineItem from '@salesforce/apex/OpportunityLineItemController.deleteOpportunityLineItem'; // Importer la méthode Apex pour supprimer
+import getCurrentUserProfile from '@salesforce/apex/UserProfileController.getCurrentUserProfile';
 import { refreshApex } from '@salesforce/apex';
 
 
 export default class OpportunityProductsViewer extends NavigationMixin(LightningElement) {
     @api recordId; // ajout de la variabe pour l'ID de l'opportunité actuelle
-
-
-
- 
     @track opportunityLineItems; // variable définie dans le fichier HTML portant les data
     showAlert = false; // propriété pour gérer l'affichage de la fenetre
-
-// variables columns pour la construction du datatable dans le HTML
+    wiredOLIResult; // Variable pour stocker le résultat de la méthode wired et permettre son raffraichissement
+    @track userProfile; // Propriété pour stocker le profil utilisateur
+    @track estVide = false; // propriété pour vérifier si les données sont vides
+    // variables columns pour la construction du datatable dans le HTML 
     @track columns = [
         { label: 'Id', fieldName: 'Id' },
         { label: 'Name', fieldName: 'Name' },
@@ -40,21 +39,49 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
             alternativeText: 'Delete', 
             variant: 'border-filled', 
             }
-        },
-        { label: 'Voir Produit', type: 'button', typeAttributes: 
-            {
-                label: 'Voir Produit', 
-                name: 'view', 
-                iconName: 'utility:preview', 
-                variant: 'brand',
-            }
         }
+        //,
+        //{ label: 'Voir Produit', type: 'button', typeAttributes: 
+        //    {
+        //        label: 'Voir Produit', 
+        //        name: 'view', 
+        //        iconName: 'utility:preview', 
+        //        variant: 'brand',
+        //    }
+        //}
 
 
     ];
 
 
-    wiredOLIResult; // Variable pour stocker le résultat de la méthode wired et permettre son raffraichissement
+       // Récupération du profil utilisateur
+       @wire(getCurrentUserProfile)
+       wiredUserProfile({ error, data }) {
+           if (data) {
+               this.userProfile = data;
+               console.log('User Profile:', this.userProfile); // ajout pour vérifier
+   
+               // Ajouter la colonne "Voir Produit" conditionnellement au profil admin
+               if (this.userProfile === 'System Administrator') {
+                   this.columns = [
+                       ...this.columns,
+                       { 
+                           label: 'Voir Produit', 
+                           type: 'button', 
+                           typeAttributes: {
+                               label: 'Voir Produit', 
+                               name: 'view', 
+                               iconName: 'utility:preview', 
+                               variant: 'brand'
+                           }
+                       }
+                   ];
+               }
+           } else if (error) {
+               console.error('Error retrieving user profile:', error);
+           }
+       }
+   
 
     @wire(getOpportunityLineItems, { opportunityId: '$recordId' })
     wiredOpportunityLineItems(result) {
@@ -63,7 +90,8 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
  
         this.wiredOLIResult = result;
         if (result.data) {
-    //        this.opportunityLineItems = data;
+        this.estVide=(result.data.length ===0);
+        if (!this.estVide) {
             this.showAlert = false;
             console.log('passage dans wiredOPP');
             this.opportunityLineItems = result.data.map(item => {
@@ -81,6 +109,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
                     quantityStyle : quantityStyle
                 };
             });
+        }    
         } else if (result.error) {
             console.error('Error retrieving opportunity line items:', error);
         }

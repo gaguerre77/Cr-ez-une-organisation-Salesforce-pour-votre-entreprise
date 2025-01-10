@@ -10,14 +10,22 @@
                     </h2>
                 </div>
             </template>
-            <lightning-datatable 
-                key-field="Id"
-                data={opportunityLineItems}
-                columns={columns}
-                onrowaction={handleRowAction}
-                hide-checkbox-column="true">
-            </lightning-datatable>
+
+            <!-- Affichage conditionnel du message ou du tableau -->
+            <template if:true={estVide}>
+                <p style="text-align: center; color: red; font-size: 18px;">
+                    Désolé, pas de produit pour cette opportunité.
+                </p>
+            </template>
+            <template if:false={estVide}>
+                <lightning-datatable 
+                    key-field="Id"
+                    data={opportunityLineItems}
+                    columns={columns}
+                    onrowaction={handleRowAction}
+                    hide-checkbox-column="true">
+                </lightning-datatable>
+            </template>
         </div>
     </lightning-card>
 </template>
-
