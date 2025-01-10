@@ -1,6 +1,15 @@
 <template>
-    <lightning-card title="liste des produits">
+    <lightning-card title="Liste des produits">
         <div class="slds-m-around_medium">
+            <!-- Message d'alerte conditionnel avec fond warning -->
+            <template if:true={showAlert}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning slds-m-bottom_medium">
+                    <span class="slds-assistive-text">Warning</span>
+                    <h2>
+                        <strong>Problème dans les quantités</strong>
+                    </h2>
+                </div>
+            </template>
             <lightning-datatable 
                 key-field="Id"
                 data={opportunityLineItems}
@@ -11,3 +20,4 @@
         </div>
     </lightning-card>
 </template>
+

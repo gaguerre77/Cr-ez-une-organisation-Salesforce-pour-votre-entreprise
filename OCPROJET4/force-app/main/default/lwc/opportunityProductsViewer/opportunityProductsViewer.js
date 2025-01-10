@@ -8,7 +8,7 @@ import { refreshApex } from '@salesforce/apex';
 
 export default class OpportunityProductsViewer extends NavigationMixin(LightningElement) {
     @track opportunityLineItems; // variable définie dans le fichier HTML portant les data
-
+    showAlert = false; // propriété pour gérer l'affichage de la fenetre
 
 // variables columns pour la construction du datatable dans le HTML
     @track columns = [
@@ -62,6 +62,8 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
                 if (item.Quantity > item.Product2.QuantityInStock__c) {
                     quantityStyle = 'color: red; font-weight: bold;';
                     console.log('quantityStyle : ', quantityStyle);
+                    this.showAlert = true;
+                    console.log('showAlert : ', this.showAlert);
                 }
                 return {
                     ...item,
