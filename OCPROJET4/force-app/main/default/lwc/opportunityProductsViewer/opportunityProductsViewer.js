@@ -57,6 +57,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
         this.wiredOLIResult = result;
         if (result.data) {
     //        this.opportunityLineItems = data;
+            this.showAlert = false;
             this.opportunityLineItems = result.data.map(item => {
                 let quantityStyle = '';
                 if (item.Quantity > item.Product2.QuantityInStock__c) {
@@ -97,7 +98,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
             .then(() => {
                 // Rafraîchir les données après suppression
                 return refreshApex(this.wiredOLIResult);
-            })
+            })         
             .catch(error => {
                 console.error('Error deleting record:', error);
             });
@@ -117,6 +118,9 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
             }
         );
     }
+
+
+
 
 
 }
