@@ -1,10 +1,10 @@
 // a creer
-import { LightningElement, wire, track } from 'lwc';
+import { LightningElement, wire, track, api } from 'lwc';
 import getCurrentUserProfile from '@salesforce/apex/UserProfileController.getCurrentUserProfile';
 
 export default class UserProfile extends LightningElement {
     @track userProfile;
-
+    @api recordId;
     @wire(getCurrentUserProfile)
     wiredUserProfile({ error, data }) {
         if (data) {

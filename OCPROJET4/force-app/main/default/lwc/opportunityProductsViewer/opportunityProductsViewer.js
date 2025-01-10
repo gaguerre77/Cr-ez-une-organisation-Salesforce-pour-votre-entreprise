@@ -1,12 +1,16 @@
-import { LightningElement, wire, track } from 'lwc';
+import { LightningElement, api, wire, track  } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getOpportunityLineItems from '@salesforce/apex/OpportunityLineItemController.getOpportunityLineItems';
 import deleteOpportunityLineItem from '@salesforce/apex/OpportunityLineItemController.deleteOpportunityLineItem'; // Importer la méthode Apex pour supprimer
 import { refreshApex } from '@salesforce/apex';
 
 
-
 export default class OpportunityProductsViewer extends NavigationMixin(LightningElement) {
+    @api recordId; // ajout de la variabe pour l'ID de l'opportunité actuelle
+
+
+
+ 
     @track opportunityLineItems; // variable définie dans le fichier HTML portant les data
     showAlert = false; // propriété pour gérer l'affichage de la fenetre
 
@@ -52,8 +56,11 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
 
     wiredOLIResult; // Variable pour stocker le résultat de la méthode wired et permettre son raffraichissement
 
-    @wire(getOpportunityLineItems)
+    @wire(getOpportunityLineItems, { opportunityId: '$recordId' })
     wiredOpportunityLineItems(result) {
+        console.log('recordId:', this.recordId); // Vérifiez que recordId est défini
+        console.log('wiredOpportunityLineItems result:', result); // Affichez le résultat
+ 
         this.wiredOLIResult = result;
         if (result.data) {
     //        this.opportunityLineItems = data;
@@ -120,7 +127,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
         );
     }
 
-
+ 
 
 
 
