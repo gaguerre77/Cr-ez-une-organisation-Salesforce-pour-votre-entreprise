@@ -15,9 +15,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
     @track estVide = false; // propriété pour vérifier si les données sont vides
     // variables columns pour la construction du datatable dans le HTML 
     @track columns = [
-        { label: 'Id', fieldName: 'Id' },
-        { label: 'Name', fieldName: 'Name' },
-        { label: 'Product2Id', fieldName: 'Product2Id' },
+        { label: 'Product Name', fieldName: 'Product2Name' },
         { 
             label: 'Quantity', 
             fieldName: 'Quantity', 
@@ -27,9 +25,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
             }
         },
         { label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency' },
-        { label: 'List Price', fieldName: 'ListPrice', type: 'currency' },
-        { label: 'Total Price', fieldName: 'TotalPrice', type: 'currency' },
-        { label: 'Product Name', fieldName: 'Product2Name' },
+        { label: 'Total Price', fieldName: 'TotalPrice', type: 'currency' },  
         { label: 'Quantity In Stock', fieldName: 'Product2QuantityInStock', type: 'number' },
         { label: 'Supprimer', type: 'button-icon', typeAttributes: 
             { 
@@ -40,15 +36,6 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
             variant: 'border-filled', 
             }
         }
-        //,
-        //{ label: 'Voir Produit', type: 'button', typeAttributes: 
-        //    {
-        //        label: 'Voir Produit', 
-        //        name: 'view', 
-        //        iconName: 'utility:preview', 
-        //        variant: 'brand',
-        //    }
-        //}
 
 
     ];
