@@ -13,15 +13,11 @@ public with sharing class OpportunityLineItemController {
 
     @AuraEnabled
     public static void deleteOpportunityLineItem(Id recordId) {
-        try {
-            OpportunityLineItem item = [SELECT Id FROM OpportunityLineItem WHERE Id = :recordId LIMIT 1];
-            delete item;
-        } catch (Exception e) {
-            throw new AuraHandledException('Error deleting record: ' + e.getMessage());
+        RowDestructor.deleteRowByrecordId(recordId);       
         }
     }
 
 
 
 
-}
+
