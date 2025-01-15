@@ -16,7 +16,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
     @track estVide = false; // propriété pour vérifier si les données sont vides
     // variables columns pour la construction du datatable dans le HTML 
     @track columns = [
-        { label: 'ProductName', fieldName: 'Product2Name' },
+        { label: ProductName, fieldName: 'Product2Name' },
         { 
             label: 'Quantity', 
             fieldName: 'Quantity', 

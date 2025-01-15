@@ -6,12 +6,7 @@ public with sharing class OpportunityLineItemController {
   
     @AuraEnabled(cacheable=true)
     public static List<OpportunityLineItem> getOpportunityLineItems(Id opportunityId) {
-        return [
-            SELECT 
-                Product2.Name, Quantity, UnitPrice, TotalPrice, Product2.QuantityInStock__c 
-            FROM OpportunityLineItem
-            WHERE OpportunityId = :opportunityId
-        ];
+        return ProductSelector.getProductsByOpportunity(opportunityId);
     }
 
 // procédure pour supprimer la ligne
