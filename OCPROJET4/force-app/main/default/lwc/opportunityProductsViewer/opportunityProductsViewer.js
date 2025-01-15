@@ -4,6 +4,7 @@ import getOpportunityLineItems from '@salesforce/apex/OpportunityLineItemControl
 import deleteOpportunityLineItem from '@salesforce/apex/OpportunityLineItemController.deleteOpportunityLineItem'; // Importer la méthode Apex pour supprimer
 import getCurrentUserProfile from '@salesforce/apex/UserProfileController.getCurrentUserProfile';
 import { refreshApex } from '@salesforce/apex';
+import ProductName from "@salesforce/label/c.OC4_Product_Name";
 
 
 export default class OpportunityProductsViewer extends NavigationMixin(LightningElement) {
@@ -15,7 +16,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
     @track estVide = false; // propriété pour vérifier si les données sont vides
     // variables columns pour la construction du datatable dans le HTML 
     @track columns = [
-        { label: 'Product Name', fieldName: 'Product2Name' },
+        { label: 'ProductName', fieldName: 'Product2Name' },
         { 
             label: 'Quantity', 
             fieldName: 'Quantity', 
