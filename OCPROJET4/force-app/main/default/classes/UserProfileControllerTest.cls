@@ -1,14 +1,14 @@
 @isTest
 private class UserProfileControllerTest {
-
     // Méthode de test pour la méthode getCurrentUserProfile
     @isTest static void testGetCurrentUserProfile() {
         // Créer un utilisateur de test
         Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];
+        String uniqueUsername = 'testUser' + DateTime.now().getTime() + '@domain.com';
         User testUser = new User(
-            Username = 'testUser@domain.com',
+            Username = uniqueUsername,
             LastName = 'Test',
-            Email = 'testUser@domain.com',
+            Email = uniqueUsername,
             Alias = 'tuser',
             TimeZoneSidKey = 'America/Los_Angeles',
             LocaleSidKey = 'en_US',
