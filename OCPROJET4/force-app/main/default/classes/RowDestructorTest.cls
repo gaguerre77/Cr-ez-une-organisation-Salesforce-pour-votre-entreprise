@@ -72,5 +72,16 @@ public class RowDestructorTest {
         System.assertEquals(0, itemList.size(), 'L\'OpportunityLineItem aurait dû être supprimée');
     }
 
+// Tentative de gestion de l'exception
 
+//    @isTest
+//    static void testDeleteRowByrecordIdException() {
+        // Tester le cas où l'OpportunityLineItem n'existe pas avec un ID NULL
+//        try {
+//            RowDestructor.deleteRowByrecordId(null);
+//            System.assert(false, 'Une exception aurait dû être levée');
+//        } catch (AuraHandledException e) {
+//            System.assertEquals('Error deleting record: Attempt to de-reference a null object', e.getMessage());
+//        }
+//    }
 }
