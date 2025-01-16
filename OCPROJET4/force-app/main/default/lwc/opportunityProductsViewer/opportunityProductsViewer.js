@@ -12,8 +12,9 @@ import TotalPrice from "@salesforce/label/c.OC4_TotalPrice";
 import QuantityinStock from "@salesforce/label/c.OC4_QuantityinStock";
 import Delete from "@salesforce/label/c.OC4_Delete";
 import Seeproduct from "@salesforce/label/c.OC4_Seeproduct";
-
-
+import Opportunityproduct from "@salesforce/label/c.OC4_Opportunityproduct";
+import Msg_ProductProblem from "@salesforce/label/c.OC4_Msg_ProductProblem";
+import Msg_NoProduct from "@salesforce/label/c.OC4_NoProduct";
 
 export default class OpportunityProductsViewer extends NavigationMixin(LightningElement) {
     @api recordId; // ajout de la variabe pour l'ID de l'opportunité actuelle
@@ -46,9 +47,16 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
             variant: 'border-filled', 
             }
         }
-
-
     ];
+
+// Expose les labels pour utilisation dans les templates HTML.
+label = {
+    Opportunityproduct,
+    Msg_ProductProblem,
+    Msg_NoProduct,
+  };
+
+
 
 
        // Récupération du profil utilisateur
