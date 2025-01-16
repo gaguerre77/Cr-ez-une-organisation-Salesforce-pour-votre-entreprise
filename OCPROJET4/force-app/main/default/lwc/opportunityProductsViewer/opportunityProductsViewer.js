@@ -4,7 +4,15 @@ import getOpportunityLineItems from '@salesforce/apex/OpportunityLineItemControl
 import deleteOpportunityLineItem from '@salesforce/apex/OpportunityLineItemController.deleteOpportunityLineItem'; // Importer la méthode Apex pour supprimer
 import getCurrentUserProfile from '@salesforce/apex/UserProfileController.getCurrentUserProfile';
 import { refreshApex } from '@salesforce/apex';
+//Importe Custom Labels
 import ProductName from "@salesforce/label/c.OC4_Product_Name";
+import Quantity from "@salesforce/label/c.OC4_Quantity";
+import UnitPrice from "@salesforce/label/c.OC4_UnitPrice";
+import TotalPrice from "@salesforce/label/c.OC4_TotalPrice";
+import QuantityinStock from "@salesforce/label/c.OC4_QuantityinStock";
+import Delete from "@salesforce/label/c.OC4_Delete";
+import Seeproduct from "@salesforce/label/c.OC4_Seeproduct";
+
 
 
 export default class OpportunityProductsViewer extends NavigationMixin(LightningElement) {
@@ -18,7 +26,7 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
     @track columns = [
         { label: ProductName, fieldName: 'Product2Name' },
         { 
-            label: 'Quantity', 
+            label: Quantity, 
             fieldName: 'Quantity', 
             type: 'number', 
             cellAttributes: {
@@ -26,10 +34,10 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
                 alignment : 'left'
             }
         },
-        { label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency',cellAttributes: { alignment: 'left' } },
-        { label: 'Total Price', fieldName: 'TotalPrice', type: 'currency',cellAttributes: { alignment: 'left' }  },  
-        { label: 'Quantity In Stock', fieldName: 'Product2QuantityInStock', type: 'number',cellAttributes: { alignment: 'left' }  },
-        { label: 'Supprimer', type: 'button-icon', typeAttributes: 
+        { label: UnitPrice, fieldName: 'UnitPrice', type: 'currency',cellAttributes: { alignment: 'left' } },
+        { label: TotalPrice, fieldName: 'TotalPrice', type: 'currency',cellAttributes: { alignment: 'left' }  },  
+        { label: QuantityinStock, fieldName: 'Product2QuantityInStock', type: 'number',cellAttributes: { alignment: 'left' }  },
+        { label: Delete, type: 'button-icon', typeAttributes: 
             { 
             iconName: 'utility:delete', 
             name: 'delete', 
@@ -51,14 +59,14 @@ export default class OpportunityProductsViewer extends NavigationMixin(Lightning
                console.log('User Profile:', this.userProfile); // ajout pour vérifier
    
                // Ajouter la colonne "Voir Produit" conditionnellement au profil admin
-               if (this.userProfile === 'System Administrator') {
+               if (this.userProfile === 'System Administrator' || this.userProfile === 'Administrateur système') {
                    this.columns = [
                        ...this.columns,
                        { 
-                           label: 'Voir Produit', 
+                           label: Seeproduct, 
                            type: 'button', 
                            typeAttributes: {
-                               label: 'Voir Produit', 
+                               label: Seeproduct, 
                                name: 'view', 
                                iconName: 'utility:preview', 
                                variant: 'brand'
