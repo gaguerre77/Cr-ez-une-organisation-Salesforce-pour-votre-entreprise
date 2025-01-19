@@ -5,7 +5,7 @@
       "default": true
     }
   ],
-  "name": "PROJET4",
+  "name": "OCPROJET4",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "62.0"

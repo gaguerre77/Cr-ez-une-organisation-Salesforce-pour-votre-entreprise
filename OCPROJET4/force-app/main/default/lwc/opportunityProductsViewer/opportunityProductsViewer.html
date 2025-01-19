@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title={label.Opportunityproduct} icon-name="standard:opportunity">
+        <div class="slds-m-around_medium">
+            <!-- Message d'alerte conditionnel avec fond warning -->
+            <template if:true={showAlert}>
+                <div class="slds-notify slds-theme_alert-texture slds-theme_warning slds-p-around_medium" >
+                    <div class="slds-text-align_left">
+                        <lightning-formatted-rich-text value={label.Msg_ProductProblem}></lightning-formatted-rich-text>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Affichage conditionnel du message ou du tableau -->
+            <template if:true={estVide}>
+                <div class="slds-text-align_left">
+                    <lightning-formatted-rich-text value={label.Msg_NoProduct}></lightning-formatted-rich-text>
+                </div>
+            </template>
+            <template if:false={estVide}>
+                <lightning-datatable 
+                    key-field="Id"
+                    data={opportunityLineItems}
+                    columns={columns}
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+</template>
